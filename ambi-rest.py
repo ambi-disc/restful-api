@@ -27,7 +27,7 @@ def login_endpoint():
 
 
 @app.route('/account/verify_token')
-def hello_world():
+def verify_token_endpoint():
     return jsonify(
         valid=True
     )
