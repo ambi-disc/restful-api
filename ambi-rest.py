@@ -162,7 +162,6 @@ def get_diary_info():
 
     for(BreastfeedingDuration, PumpingMethod, InfantState, MaternalProblems, Latching, Side, PumpingAmount) in cursor:
         breastfeeding_diary.append({
-            'entryid': EntryId,
             'breastfeedingduration': BreastfeedingDuration,
             'pumpingmethod': PumpingMethod,
             'infantstate': InfantState,
