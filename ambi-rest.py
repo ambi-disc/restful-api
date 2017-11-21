@@ -1,4 +1,5 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+import mysql.connector
 
 app = Flask(__name__)
 
@@ -8,7 +9,7 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/account/create')
+@app.route('/account/create', methods=['POST'])
 def create_account_endpoint():
     return jsonify(
         success=True,
@@ -17,7 +18,7 @@ def create_account_endpoint():
     )
 
 
-@app.route('/account/login')
+@app.route('/account/login', methods=['POST'])
 def login_endpoint():
     return jsonify(
         success=True,
@@ -32,10 +33,10 @@ def verify_token_endpoint():
         valid=True
     )
 
-@app.rout('/mothers')
+@app.route('/mothers')
 def get_mother_info():
     query = ('SELECT * FROM MotherInfo')
-    cnx = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'LACTOR', host= '166.62.75.128', port=3306)
+    cnx = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
     authToken = request.args.get('authToken')
 
@@ -49,29 +50,32 @@ def get_mother_info():
     mothers = []
 
     for( mid, Name, Address, Age, Ethnicity, Race, Education, HouseIncome, Occupation, Residence, Parity, POH, MHDP, MethodOfDelivery, PBE, Phone) in cursor:
-        mothers.append(jsonify(
-            name= mid,
-            motherId= Address,
-            address= Ethnicity,
-            age=Age,
-            ethnicity= Ethnicity,
-            race= Race,
-            education= Education,
-            houseIncome= HouseIncome,
-            occupation= Occupation,
-            residence= Residence,
-            parity= Parity,
-            poh=POH,
-            mhdp= MHDP,
-            methodOfDelivery= MethodOfDelivery,
-            pbe= PBE,
-            phone= Phone
-        ))
+        mother = {
+            'name': mid,
+            'motherId': Address,
+            'address': Ethnicity,
+            'age': Age,
+            'ethnicity': Ethnicity,
+            'race': Race,
+            'education': Education,
+            'houseIncome': HouseIncome,
+            'occupation': Occupation,
+            'residence': Residence,
+            'parity': Parity,
+            'poh': POH,
+            'mhdp': MHDP,
+            'methodOfDelivery': MethodOfDelivery,
+            'pbe': PBE,
+            'phone': Phone
+        }
+        print(mother)
+        mothers.append(mother)
+    print(mothers)
     return jsonify(
+        mothers=mothers
+    )
 
-        mothers=mothers)
-
-@app.rout('/diary')
+@app.route('/diary')
 def get_diary_info():
 
     db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'LACTOR', host= '166.62.75.128', port=3306)
