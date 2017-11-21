@@ -79,7 +79,7 @@ def get_mother_info():
 @app.route('/diary')
 def get_diary_info():
 
-    db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'LACTOR', host= '166.62.75.128', port=3306)
+    db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
     # Url Params
     authToken = request.args.get('authToken')
