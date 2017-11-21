@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 import mysql.connector
+from flask import abort
 
 app = Flask(__name__)
 
@@ -42,7 +43,7 @@ def get_mother_info():
 
     # TODO actual user verification
     if authToken != 'AXNTHAUONTUOAENHTOEUA':
-        raise(403)
+        abort(403)
 
     cursor = cnx.cursor()
     cursor.execute(query)
@@ -92,7 +93,7 @@ def get_diary_info():
 
     # TODO actual user verification
     if authToken != 'AXNTHAUONTUOAENHTOEUA':
-        raise(403)
+        abort(403)
 
     sqlParams = (motherId,)
     suffix_to_query = ''
@@ -160,64 +161,64 @@ def get_diary_info():
     cursor.execute(breastfeeding_query, sqlParams)
 
     for(EntryId, BreastfeedingDuration, PumpingMethod, InfantState, MaternalProblems, Latching, Side, PumpingAmount) in cursor:
-        breastfeeding_diary.append(jsonify(
-            entryid = EntryId,
-            breastfeedingduration= BreastfeedingDuration,
-            pumpingmethod = PumpingMethod,
-            infantstate = InfantState,
-            maternalproblems = MaternalProblems,
-            latching = Latching,
-            side = Side,
-            pumpingamount = PumpingAmount
-        ))
+        breastfeeding_diary.append({
+            'entryid': EntryId,
+            'breastfeedingduration': BreastfeedingDuration,
+            'pumpingmethod': PumpingMethod,
+            'infantstate': InfantState,
+            'maternalproblems': MaternalProblems,
+            'latching': Latching,
+            'side': Side,
+            'pumpingamount': PumpingAmount
+        })
 
     cursor.close()
     cursor = db.cursor()
     cursor.execute(supplement_query, sqlParams)
 
     for(EntryId, SupType, SupMethod, NumberDiapers, TotalAmount, NumberTimes) in cursor:
-        supplement_diary.append(jsonify(
-            entryid = EntryId,
-            suptype = SupType,
-            supmethod = SupMethod,
-            numberofdiapers = NumberDiapers,
-            totalamount = TotalAmount,
-            numbertimes = NumberTimes
-        ))
+        supplement_diary.append({
+            'entryid': EntryId,
+            'suptype': SupType,
+            'supmethod': SupMethod,
+            'numberofdiapers': NumberDiapers,
+            'totalamount': TotalAmount,
+            'numbertimes': NumberTimes
+        })
 
     cursor.close()
     cursor = db.cursor()
     cursor.execute(output_query, sqlParams)
 
     for(EntryId, UrineColor, UrineSaturation, StoolColor, StoolConsistency, NumberDiapers) in cursor:
-        output_entries.append(jsonify(
-            entryid = EntryId,
-            urinecolor= UrineColor,
-            urinesaturation = UrineSaturation,
-            stoolcolor = StoolColor,
-            stoolconsistency = StoolConsistency,
-            numberdiapers = NumberDiapers
-        ))
+        output_entries.append({
+            'entryid': EntryId,
+            'urinecolor': UrineColor,
+            'urinesaturation': UrineSaturation,
+            'stoolcolor': StoolColor,
+            'stoolconsistency': StoolConsistency,
+            'numberdiapers': NumberDiapers
+        })
 
     cursor.close()
     cursor = db.cursor()
     cursor.execute(morbidity_query, sqlParams)
 
     for(EntryId, Type) in cursor:
-        morbidity_entries.append(jsonify(
-            entryid= EntryId,
-            type= Type
-        ))
+        morbidity_entries.append({
+            'entryid': EntryId,
+            'type': Type
+        })
 
     cursor.close()
     db.close()
 
-    return jsonify(
-        breastfeedEntries=breastfeeding_diary,
-        supplementEntries= output_entries,
-        outputEntries=supplement_diary,
-        morbidityEntries=morbidity_entries
-    )
+    return jsonify({
+        'breastfeedEntries': breastfeeding_diary,
+        'supplementEntries': output_entries,
+        'outputEntries': supplement_diary,
+        'morbidityEntries': morbidity_entries
+    })
 
 
 if __name__ == '__main__':
