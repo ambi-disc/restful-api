@@ -106,7 +106,8 @@ def get_diary_info():
 
     # Queries for breastfeeding entries, supplement entries, output entries, and morbidity entries
     breastfeeding_query = """
-        SELECT BreastfeedingDuration,
+        SELECT EntryId,
+               BreastfeedingDuration,
                PumpingMethod,
                InfantState,
                MaternalProblems,
@@ -120,7 +121,8 @@ def get_diary_info():
     """
 
     supplement_query="""
-        SELECT SupType,
+        SELECT EntryId,
+               SupType,
                SupMethod,
                NumberDiapers,
                TotalAmount,
@@ -132,7 +134,8 @@ def get_diary_info():
     """
 
     output_query = """
-        SELECT UrineColor,
+        SELECT EntryId,
+               UrineColor,
                UrineSaturation,
                StoolColor,
                StoolConsistency,
@@ -144,7 +147,8 @@ def get_diary_info():
     """
 
     morbidity_query = """
-        SELECT Type, 
+        SELECT EntryId,
+               Type,
                EntryDate
         FROM MorbidityEntry
         INNER JOIN Diary
@@ -204,10 +208,11 @@ def get_diary_info():
     cursor = db.cursor()
     cursor.execute(morbidity_query, sqlParams)
 
-    for(EntryId, Type) in cursor:
+    for(EntryId, Type, EntryDate) in cursor:
         morbidity_entries.append({
             'entryid': EntryId,
-            'type': Type
+            'type': Type,
+            'entryDate': EntryDate
         })
 
     cursor.close()
