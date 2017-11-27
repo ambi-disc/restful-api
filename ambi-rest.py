@@ -86,10 +86,6 @@ def get_diary_info():
     motherId = request.args.get('motherId')
     startDate = request.args.get('startDate')
     endDate = request.args.get('endDate')
-    breastfeeding = request.args.get('breastfeeding')
-    supplement = request.args.get('supplement')
-    output = request.args.get('output')
-    healthIssues = request.args.get('healthIssues')
 
     # TODO actual user verification
     if authToken != 'AXNTHAUONTUOAENHTOEUA':
