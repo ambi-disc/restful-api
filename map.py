@@ -49,6 +49,8 @@ def occupation_map(num):
     return {
         1: 'Homemaker',
         2: 'Professional',
+        3: None,
+        4: None
 
     }[num]
 
