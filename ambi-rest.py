@@ -2,6 +2,9 @@ from flask import Flask, jsonify, request
 import mysql.connector
 from flask import abort
 
+from map import age_map, ethnicity_map, race_map, education_map, house_income_map, occupation_map, residence_map, \
+    parity_map, poh_map, mhdp_map, method_of_delivery_map, pbe_map
+
 app = Flask(__name__)
 
 
@@ -52,9 +55,9 @@ def get_mother_info():
 
     for( mid, Name, Address, Age, Ethnicity, Race, Education, HouseIncome, Occupation, Residence, Parity, POH, MHDP, MethodOfDelivery, PBE, Phone) in cursor:
         mother = {
-            'name': mid,
-            'motherId': Address,
-            'address': Ethnicity,
+            'name': Name, 
+            'motherId': mid,
+            'address': Address,
             'age': age_map(Age),
             'ethnicity': ethnicity_map(Ethnicity),
             'race': race_map(Race),
