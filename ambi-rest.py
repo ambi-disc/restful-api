@@ -54,27 +54,28 @@ def get_mother_info():
     mothers = []
 
     for( mid, Name, Address, Age, Ethnicity, Race, Education, HouseIncome, Occupation, Residence, Parity, POH, MHDP, MethodOfDelivery, PBE, Phone) in cursor:
-        mother = {
-            'name': Name, 
-            'motherId': mid,
-            'address': Address,
-            'age': age_map(Age),
-            'ethnicity': ethnicity_map(Ethnicity),
-            'race': race_map(Race),
-            'education': education_map(Education),
-            'houseIncome': house_income_map(HouseIncome),
-            'occupation': occupation_map(Occupation),
-            'residence': residence_map(Residence),
-            'parity': parity_map(Parity),
-            'poh': poh_map(POH),
-            'mhdp': mhdp_map(MHDP),
-            'methodOfDelivery': method_of_delivery_map(MethodOfDelivery),
-            'pbe': pbe_map(PBE),
-            'phone': Phone
-        }
-        print(mother)
-        mothers.append(mother)
-    print(mothers)
+        try:
+            mother = {
+                'name': Name,
+                'motherId': mid,
+                'address': Address,
+                'age': age_map(Age),
+                'ethnicity': ethnicity_map(Ethnicity),
+                'race': race_map(Race),
+                'education': education_map(Education),
+                'houseIncome': house_income_map(HouseIncome),
+                'occupation': occupation_map(Occupation),
+                'residence': residence_map(Residence),
+                'parity': parity_map(Parity),
+                'poh': poh_map(POH),
+                'mhdp': mhdp_map(MHDP),
+                'methodOfDelivery': method_of_delivery_map(MethodOfDelivery),
+                'pbe': pbe_map(PBE),
+                'phone': Phone
+            }
+            mothers.append(mother)
+        except KeyError:
+            print("Mother with id %s has a null value, and will not be returned as a result." % mid)
     return jsonify(
         mothers=mothers
     )
