@@ -62,15 +62,21 @@ def residence_map(num):
     }[num]
 
 def parity_map(num):
+    return None
+    '''
     return {
         1: 'none',
         2: 'none',
         3: 'none',
         4: 'none'
     }[num]
+    '''
 
 def poh_map(num):
+    return None
+    '''
     return {
+        
         1111: 'none',
         1112: 'none',
         1121: 'none',
@@ -87,8 +93,8 @@ def poh_map(num):
         1212: 'none',
         2112: 'none',
         2122: 'none'
-
     }[num]
+    '''
 
 def mhdp_map(num):
     return {
