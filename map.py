@@ -162,6 +162,7 @@ def mhdp_map(num):
         1212111: 'Bleeding during pregnancy, Lack or late prenatal care',
         1212122: 'Bleeding during pregnancy, Lack or late prenatal care, Gestational Diabetes and Other',
         1212222: 'Bleeding during pregnancy, Lack or late prenatal care, PROM, Gestational Diabetes and Other',
+        1211211: 'Bleeding during pregnancy, and Gestational Diabetes and Other'
 
     }[num]
 
