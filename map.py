@@ -1,3 +1,5 @@
+# Mother model mapped values
+
 def age_map(num):
     return {
         1: '<20',
@@ -184,3 +186,169 @@ def pbe_map(num):
         5: "No past breastfeeding experience"
 
     }[num]
+
+#Diary Mapped values
+
+#Values for BreastfeedEntry database
+
+def breast_feeding_duration_map(num):
+    return {
+        1: "1-2 minutes",
+        2: "3-4 minutes",
+        3: "5-10 minutes",
+        4: "11-15 minutes",
+        5: "> 15 minutes"
+
+    }[num]
+
+def pumping_method_map(num):
+    return {
+        1: "Hand Pump",
+        2: "Manual Pump",
+        3: "Double Electric Pump",
+        4: "Not applicable"
+    }[num]
+
+def infant_state_map(num):
+    return {
+        1: "Difficult to awake",
+        2: "Drowsy",
+        3: "Quiet and Alert",
+        4: "Active alert",
+        5: "Crying"
+
+    }[num]
+
+def maternal_problems_map(num):
+    return {
+        1: "Breast tissue is soft/no milk coming in",
+        2: "Sore nipple",
+        3: "Flat/inverted nipple",
+        4: "Engorgement",
+        5: "Mastitis",
+        6: "No problem"
+    }[num]
+
+def latching_map(num):
+    return{
+        1: "Not at all",
+        2: "Slipping of the breast",
+        3: "Latch correctly",
+        4: "Latch with nipple shield"
+    }[num]
+
+def side_map(num):
+    return{
+        1: "left",
+        2: "right"
+    }[num]
+
+def pumping_amount_map(num):
+    return{
+        1: "1 ounce",
+        2: "2 ounce",
+        3: "3 ounce",
+        4: "4 ounce",
+        5: "5 ounce",
+        6: "6 ounce",
+        7: "7 ounce",
+        8: "8 ounce",
+        9: "9 ounce",
+        10: "10 ounce",
+        11: "> 10 ounces"
+    }[num]
+
+#Values for SupplementEntry database
+
+def suptype_map(num):
+    return {
+        1: "Expressed milk",
+        2: "Pasteurized human milk",
+        3: "Formula"
+    }[num]
+
+def supmethod_map(num):
+    return{
+        1: "Bottle",
+        2: "Cup",
+        3: "Supplemental Set",
+        4: "Spoon"
+     }[num]
+
+def number_of_diapers_map(num):
+    return None
+
+#TODO this doesnt look right
+
+def total_amount_map(num):
+    return{
+        1: "1 ounce",
+        2: "2 ounce",
+        3: "3 ounce",
+        4: "4 ounce",
+        5: "5 ounce",
+        6: "6 ounce",
+        7: "7 ounce",
+        8: "8 ounce",
+        9: "9 ounce",
+        10: "10 ounce",
+        11: "> 10 ounces"
+
+    }[num]
+
+def total_amount_today(num):
+    return{
+        1: "1",
+        2: "2",
+        3: "3",
+        4: "4",
+        5: "5",
+        6: "> 5"
+    }[num]
+
+#Values for OutputEntry database
+
+def urine_color_map(num):
+    return{
+        1: "Amber Yellow",
+        2: "Dark Yellow"
+    }[num]
+
+def urine_saturation_map(num):
+    return{
+        1: "Not wet at all",
+        2: "Slightly wet",
+        3: "Moderately wet",
+        4: "Heavily wet"
+    }[num]
+
+def stool_color_map(num):
+    return{
+        1: "Black/tarry meconium",
+        2: "Black/Green",
+        3: "Yellow"
+    }[num]
+
+def stool_consistency_map(num):
+    return{
+        1: "Loose and steady",
+        2: "Formed",
+        3: "Watery"
+    }[num]
+
+def number_of_diapers_map(num):
+    return{
+        1: "1",
+        2: "2",
+        3: "3",
+        4: "4",
+        5: "5",
+        6: "6",
+        7: "> 6"
+    }[num]
+
+#Values for MorbidityEntry database
+def type_map(num):
+    return None
+
+

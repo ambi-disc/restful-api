@@ -3,7 +3,10 @@ import mysql.connector
 from flask import abort
 
 from map import age_map, ethnicity_map, race_map, education_map, house_income_map, occupation_map, residence_map, \
-    parity_map, poh_map, mhdp_map, method_of_delivery_map, pbe_map
+    parity_map, poh_map, mhdp_map, method_of_delivery_map, pbe_map, breast_feeding_duration_map, pumping_method_map, \
+    infant_state_map, maternal_problems_map, latching_map, pumping_amount_map, side_map, suptype_map, supmethod_map, \
+    number_of_diapers_map, total_amount_map, total_amount_today, urine_color_map, urine_saturation_map, stool_color_map, \
+    stool_consistency_map
 
 app = Flask(__name__)
 
@@ -79,6 +82,38 @@ def get_mother_info():
     return jsonify(
         mothers=mothers
     )
+'''
+@app.route('/scientists')
+def get_scientists_info():
+    query=('SELECT * FROM Scientists')
+    db = mysql.connector.connect(user='EPICS', password='EPICS2017', database='lactor', host='166.62.75.128', port=3306)
+    authToken = request.args.get('authToken')
+
+    # TODO actual user verification
+    if authToken != 'AXNTHAUONTUOAENHTOEUA':
+        abort(403)
+
+    cursor = cnx.cursor()
+    cursor.execute(query)
+
+    scientists = []
+
+    for(sid, email, password, loginstep, admin, hospital_id, name) in cursor:
+        try:
+            scientists = {
+                'scientistid'= sid,
+                'email' = email,
+                'password' = password,
+                'loginstep' = loginstep,
+                'admin' = admin,
+                'hospitalid'= hospital_id,
+                'name' = name
+            
+                    
+            }
+            print(scientists)
+            r
+'''
 
 @app.route('/diary')
 def get_diary_info():
@@ -162,13 +197,13 @@ def get_diary_info():
 
     for(BreastfeedingDuration, PumpingMethod, InfantState, MaternalProblems, Latching, Side, PumpingAmount) in cursor:
         breastfeeding_diary.append({
-            'breastfeedingduration': BreastfeedingDuration,
-            'pumpingmethod': PumpingMethod,
-            'infantstate': InfantState,
-            'maternalproblems': MaternalProblems,
-            'latching': Latching,
-            'side': Side,
-            'pumpingamount': PumpingAmount
+            'breastfeedingduration': breast_feeding_duration_map(BreastfeedingDuration),
+            'pumpingmethod': pumping_method_map(PumpingMethod),
+            'infantstate': infant_state_map(InfantState),
+            'maternalproblems': maternal_problems_map(MaternalProblems),
+            'latching': latching_map(Latching),
+            'side': side_map(Side),
+            'pumpingamount': pumping_amount_map(PumpingAmount)
         })
 
     cursor.close()
@@ -177,11 +212,11 @@ def get_diary_info():
 
     for(SupType, SupMethod, NumberDiapers, TotalAmount, NumberTimes) in cursor:
         supplement_diary.append({
-            'suptype': SupType,
-            'supmethod': SupMethod,
-            'numberofdiapers': NumberDiapers,
-            'totalamount': TotalAmount,
-            'numbertimes': NumberTimes
+            'suptype': suptype_map(SupType),
+            'supmethod': supmethod_map(SupMethod),
+            'numberofdiapers': number_of_diapers_map(NumberDiapers),
+            'totalamount': total_amount_map(TotalAmount),
+            'numbertimes': total_amount_today(NumberTimes)
         })
 
     cursor.close()
@@ -190,11 +225,11 @@ def get_diary_info():
 
     for(UrineColor, UrineSaturation, StoolColor, StoolConsistency, NumberDiapers) in cursor:
         output_entries.append({
-            'urinecolor': UrineColor,
-            'urinesaturation': UrineSaturation,
-            'stoolcolor': StoolColor,
-            'stoolconsistency': StoolConsistency,
-            'numberdiapers': NumberDiapers
+            'urinecolor': urine_color_map(UrineColor),
+            'urinesaturation': urine_saturation_map(UrineSaturation),
+            'stoolcolor': stool_color_map(StoolColor),
+            'stoolconsistency': stool_consistency_map(StoolConsistency),
+            'numberdiapers': number_of_diapers_map(NumberDiapers)
         })
 
     cursor.close()
