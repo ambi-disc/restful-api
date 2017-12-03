@@ -197,7 +197,7 @@ def get_diary_info():
     cursor.execute(breastfeeding_query, sqlParams)
 
     for(BreastfeedingDuration, PumpingMethod, InfantState, MaternalProblems, Latching, Side, PumpingAmount) in cursor:
-        if(BreastfeedingDuration or PumpingAmount or InfantState or MaternalProblems or Latching or Side or PumpingAmount == None):
+        if(BreastfeedingDuration == None or PumpingAmount == None or InfantState == None or MaternalProblems == None or Latching == None or Side == None or PumpingAmount == None):
             continue
         breastfeeding_diary.append({
             'breastfeedingduration': breast_feeding_duration_map(BreastfeedingDuration),
@@ -214,6 +214,8 @@ def get_diary_info():
     cursor.execute(supplement_query, sqlParams)
 
     for(SupType, SupMethod, NumberDiapers, TotalAmount, NumberTimes) in cursor:
+        if(SupType == None or SupMethod == None or NumberDiapers == None or TotalAmount == None or NumberTimes == None):
+            continue
         supplement_diary.append({
             'suptype': suptype_map(SupType),
             'supmethod': supmethod_map(SupMethod),
@@ -227,6 +229,8 @@ def get_diary_info():
     cursor.execute(output_query, sqlParams)
 
     for(UrineColor, UrineSaturation, StoolColor, StoolConsistency, NumberDiapers) in cursor:
+        if(UrineColor == None or UrineSaturation == None or StoolColor == None or StoolConsistency == None or NumberDiapers == None):
+            continue
         output_entries.append({
             'urinecolor': urine_color_map(UrineColor),
             'urinesaturation': urine_saturation_map(UrineSaturation),
@@ -240,6 +244,8 @@ def get_diary_info():
     cursor.execute(morbidity_query, sqlParams)
 
     for(Type, EntryDate) in cursor:
+        if(Type == None or EntryDate == None):
+            continue
         morbidity_entries.append({
             'type': Type,
             'entryDate': EntryDate
