@@ -280,12 +280,14 @@ def total_amount_today(num):
 
 def urine_color_map(num):
     return{
+        0: "None",
         1: "Amber Yellow",
         2: "Dark Yellow"
     }[num]
 
 def urine_saturation_map(num):
     return{
+        0: "None",
         1: "Not wet at all",
         2: "Slightly wet",
         3: "Moderately wet",
@@ -310,6 +312,7 @@ def stool_consistency_map(num):
 
 def number_of_diapers_map(num):
     return{
+        0:"none",
         1: "1",
         2: "2",
         3: "3",
