@@ -9,43 +9,16 @@ def age_map(num):
     }[num]
 
 def ethnicity_map(num):
-    return {
-        1: 'Hispanic of Latino',
-        2: 'NON Hispanic of Lation'
-
-    }[num]
+    return None
 
 def race_map(num):
-    return {
-        1: 'Native Hawaiian or Pacific Islander',
-        2: 'Asian',
-        3: 'Black of African American',
-        4: 'American Indian/Alaskan Native',
-        5: 'White',
-        6: 'One or more race'
-
-    }[num]
+    return None
 
 def education_map(num):
-    return {
-        1: 'Less than high school',
-        2: 'High school/GED',
-        3: 'Some college',
-        4: 'Associate College',
-        5: 'BA or BS degree',
-        6: 'Masters Degree',
-        7: 'Doctoral Degree',
-        8: 'Professional Degree'
-    }[num]
+    return None
 
 def house_income_map(num):
-    return {
-        1: 'Less than $10,000',
-        2: '$10,000 to < $24,999',
-        3: '$25,000 to $49,999',
-        4: '$50,000 or more'
-
-    }[num]
+    return None
 
 def occupation_map(num):
     return {
@@ -57,13 +30,7 @@ def occupation_map(num):
     }[num]
 
 def residence_map(num):
-    return {
-        1: 'Rural',
-        2: 'Urban',
-        3: 'Apartment/Rental',
-        4: 'Owned'
-
-    }[num]
+    return None
 
 def parity_map(num):
     return None

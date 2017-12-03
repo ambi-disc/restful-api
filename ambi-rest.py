@@ -133,10 +133,10 @@ def get_diary_info():
     sqlParams = (motherId,)
     suffix_to_query = ''
     if startDate is not None:
-        suffix_to_query+= " AND EntryDate > %s"
+        suffix_to_query+= " AND EntryDate > STR_TO_DATE(%s, %d,%m,%Y)"
         sqlParams += (startDate,)
     if endDate is not None:
-        suffix_to_query+= " AND EntryDate < %s"
+        suffix_to_query+= " AND EntryDate < STR_TO_DATE(%s, %d,%m,%Y)"
         sqlParams += (endDate,)
 
     # Queries for breastfeeding entries, supplement entries, output entries, and morbidity entries
