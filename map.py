@@ -212,6 +212,7 @@ def side_map(num):
 
 def pumping_amount_map(num):
     return{
+        0: "0 ounce",
         1: "1 ounce",
         2: "2 ounce",
         3: "3 ounce",
