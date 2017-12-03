@@ -207,7 +207,8 @@ def latching_map(num):
 def side_map(num):
     return{
         1: "left",
-        2: "right"
+        2: "right",
+        3: "both"
     }[num]
 
 def pumping_amount_map(num):
