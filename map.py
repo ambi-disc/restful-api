@@ -225,7 +225,7 @@ def pumping_amount_map(num):
         9: "9 ounce",
         10: "10 ounce",
         11: "> 10 ounces"
-        None: None
+
     }[num]
 
 #Values for SupplementEntry database

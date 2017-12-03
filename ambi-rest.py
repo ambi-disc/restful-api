@@ -139,6 +139,7 @@ def get_diary_info():
         suffix_to_query+= " AND EntryDate < STR_TO_DATE(%s, %d,%m,%Y)"
         sqlParams += (endDate,)
 
+
     # Queries for breastfeeding entries, supplement entries, output entries, and morbidity entries
     breastfeeding_query = """
         SELECT BreastfeedingDuration,
@@ -196,6 +197,8 @@ def get_diary_info():
     cursor.execute(breastfeeding_query, sqlParams)
 
     for(BreastfeedingDuration, PumpingMethod, InfantState, MaternalProblems, Latching, Side, PumpingAmount) in cursor:
+        if(BreastfeedingDuration or PumpingAmount or InfantState or MaternalProblems or Latching or Side or PumpingAmount == None):
+            continue
         breastfeeding_diary.append({
             'breastfeedingduration': breast_feeding_duration_map(BreastfeedingDuration),
             'pumpingmethod': pumping_method_map(PumpingMethod),
