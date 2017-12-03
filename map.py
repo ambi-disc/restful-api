@@ -301,6 +301,7 @@ def stool_color_map(num):
 
 def stool_consistency_map(num):
     return{
+        0: "None",
         1: "Loose and steady",
         2: "Formed",
         3: "Watery"
