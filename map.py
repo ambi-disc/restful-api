@@ -294,6 +294,7 @@ def urine_saturation_map(num):
 
 def stool_color_map(num):
     return{
+        0: "None",
         1: "Black/tarry meconium",
         2: "Black/Green",
         3: "Yellow"
