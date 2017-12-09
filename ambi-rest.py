@@ -6,7 +6,7 @@ from map import age_map, ethnicity_map, race_map, education_map, house_income_ma
     parity_map, poh_map, mhdp_map, method_of_delivery_map, pbe_map, breast_feeding_duration_map, pumping_method_map, \
     infant_state_map, maternal_problems_map, latching_map, pumping_amount_map, side_map, suptype_map, supmethod_map, \
     number_of_diapers_map, total_amount_map, total_amount_today, urine_color_map, urine_saturation_map, stool_color_map, \
-    stool_consistency_map
+    stool_consistency_map, type_map
 
 app = Flask(__name__)
 
@@ -255,7 +255,7 @@ def get_diary_info():
         if(Type == None or EntryDate == None):
             continue
         morbidity_entries.append({
-            'type': Type,
+            'type': type_map(Type),
             'entryDate': EntryDate
         })
 

@@ -326,6 +326,14 @@ def number_of_diapers_map(num):
 
 #Values for MorbidityEntry database
 def type_map(num):
-    return None
+    return {
+        1: "Jaundice",
+        2: "Decrease body tempature",
+        3: "Decrease in blood glucose",
+        4: "Difficult or troubling breathing",
+        5: "Infection",
+        6: "Dehydration",
+        7: "Weight loss"
+    }[num]
 
 
