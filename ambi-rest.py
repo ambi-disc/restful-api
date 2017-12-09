@@ -200,8 +200,10 @@ def get_diary_info():
     cursor.execute(breastfeeding_query, sqlParams)
 
     for(BreastfeedingDuration, PumpingMethod, InfantState, MaternalProblems, Latching, Side, PumpingAmount, EntryDate) in cursor:
+        print("Hi 1")
         if(BreastfeedingDuration == None or PumpingAmount == None or InfantState == None or MaternalProblems == None or Latching == None or Side == None or PumpingAmount == None):
             continue
+        print("Hi 2")
         breastfeeding_diary.append({
             'breastfeedingduration': breast_feeding_duration_map(BreastfeedingDuration),
             'pumpingmethod': pumping_method_map(PumpingMethod),
