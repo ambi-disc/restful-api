@@ -154,6 +154,7 @@ def get_diary_info():
         INNER JOIN Diary
         ON Diary.EntryId = BreastfeedEntry.EntryId
         WHERE mid = %s
+        ORDER BY Diary.EntryDate DESC
     """
 
     supplement_query="""
@@ -167,6 +168,7 @@ def get_diary_info():
         INNER JOIN Diary
         ON Diary.EntryId = SupplementEntry.EntryId
         WHERE mid = %s
+        ORDER BY Diary.EntryDate DESC
     """
 
     output_query = """
@@ -180,6 +182,7 @@ def get_diary_info():
         INNER JOIN Diary
         ON Diary.EntryId = OutputEntry.EntryId
         WHERE mid = %s
+        ORDER BY Diary.EntryDate DESC
     """
 
     morbidity_query = """
@@ -189,6 +192,7 @@ def get_diary_info():
         INNER JOIN Diary
         ON Diary.EntryId = MorbidityEntry.EntryId
         WHERE mid = %s
+        ORDER BY Diary.EntryDate DESC
     """
 
     breastfeeding_diary=[]

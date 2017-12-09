@@ -324,7 +324,6 @@ def number_of_diapers_map(num):
         7: "> 6"
     }[num]
 
-#Values for MorbidityEntry database
 def type_map(num):
     return {
         1: "Jaundice",
