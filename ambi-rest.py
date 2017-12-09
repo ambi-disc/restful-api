@@ -264,8 +264,8 @@ def get_diary_info():
 
     return jsonify({
         'breastfeedEntries': breastfeeding_diary,
-        'supplementEntries': output_entries,
-        'outputEntries': supplement_diary,
+        'supplementEntries': supplement_diary,
+        'outputEntries': output_entries,
         'morbidityEntries': morbidity_entries
     })
 
