@@ -148,8 +148,9 @@ def get_diary_info():
                MaternalProblems,
                Latching,
                Side,
-               PumpingAmount
-        FROM BreastfeedEntry 
+               PumpingAmount,
+               DATE_FORMAT(EntryDate, '%b %e, %Y') as EntryDate
+        FROM BreastfeedEntry
         INNER JOIN Diary
         ON Diary.EntryId = BreastfeedEntry.EntryId
         WHERE mid = %s
@@ -160,7 +161,8 @@ def get_diary_info():
                SupMethod,
                NumberDiapers,
                TotalAmount,
-               NumberTimes
+               NumberTimes,
+               DATE_FORMAT(EntryDate, '%b %e, %Y') as EntryDate
         FROM SupplementEntry
         INNER JOIN Diary
         ON Diary.EntryId = SupplementEntry.EntryId
@@ -172,7 +174,8 @@ def get_diary_info():
                UrineSaturation,
                StoolColor,
                StoolConsistency,
-               NumberDiapers
+               NumberDiapers,
+               DATE_FORMAT(EntryDate, '%b %e, %Y') as EntryDate
         FROM OutputEntry
         INNER JOIN Diary
         ON Diary.EntryId = OutputEntry.EntryId
@@ -181,7 +184,7 @@ def get_diary_info():
 
     morbidity_query = """
         SELECT Type,
-               EntryDate
+               DATE_FORMAT(EntryDate, '%b %e, %Y') as EntryDate
         FROM MorbidityEntry
         INNER JOIN Diary
         ON Diary.EntryId = MorbidityEntry.EntryId
