@@ -311,8 +311,10 @@ def stool_consistency_map(num):
     }[num]
 
 def number_of_diapers_map(num):
+    if num is None:
+        return "None"
     return{
-        0:"none",
+        0:"None",
         1: "1",
         2: "2",
         3: "3",
