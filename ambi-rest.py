@@ -199,7 +199,7 @@ def get_diary_info():
     cursor = db.cursor()
     cursor.execute(breastfeeding_query, sqlParams)
 
-    for(BreastfeedingDuration, PumpingMethod, InfantState, MaternalProblems, Latching, Side, PumpingAmount) in cursor:
+    for(BreastfeedingDuration, PumpingMethod, InfantState, MaternalProblems, Latching, Side, PumpingAmount, EntryDate) in cursor:
         if(BreastfeedingDuration == None or PumpingAmount == None or InfantState == None or MaternalProblems == None or Latching == None or Side == None or PumpingAmount == None):
             continue
         breastfeeding_diary.append({
@@ -209,14 +209,15 @@ def get_diary_info():
             'maternalproblems': maternal_problems_map(MaternalProblems),
             'latching': latching_map(Latching),
             'side': side_map(Side),
-            'pumpingamount': pumping_amount_map(PumpingAmount)
+            'pumpingamount': pumping_amount_map(PumpingAmount),
+            'entryDate': EntryDate
         })
 
     cursor.close()
     cursor = db.cursor()
     cursor.execute(supplement_query, sqlParams)
 
-    for(SupType, SupMethod, NumberDiapers, TotalAmount, NumberTimes) in cursor:
+    for(SupType, SupMethod, NumberDiapers, TotalAmount, NumberTimes, EntryDate) in cursor:
         if(SupType == None or SupMethod == None or NumberDiapers == None or TotalAmount == None or NumberTimes == None):
             continue
         supplement_diary.append({
@@ -224,14 +225,15 @@ def get_diary_info():
             'supmethod': supmethod_map(SupMethod),
             'numberofdiapers': number_of_diapers_map(NumberDiapers),
             'totalamount': total_amount_map(TotalAmount),
-            'numbertimes': total_amount_today(NumberTimes)
+            'numbertimes': total_amount_today(NumberTimes),
+            'entryDate': EntryDate
         })
 
     cursor.close()
     cursor = db.cursor()
     cursor.execute(output_query, sqlParams)
 
-    for(UrineColor, UrineSaturation, StoolColor, StoolConsistency, NumberDiapers) in cursor:
+    for(UrineColor, UrineSaturation, StoolColor, StoolConsistency, NumberDiapers, EntryDate) in cursor:
         if(UrineColor == None or UrineSaturation == None or StoolColor == None or StoolConsistency == None or NumberDiapers == None):
             continue
         output_entries.append({
@@ -239,7 +241,8 @@ def get_diary_info():
             'urinesaturation': urine_saturation_map(UrineSaturation),
             'stoolcolor': stool_color_map(StoolColor),
             'stoolconsistency': stool_consistency_map(StoolConsistency),
-            'numberdiapers': number_of_diapers_map(NumberDiapers)
+            'numberdiapers': number_of_diapers_map(NumberDiapers),
+            'entryDate': EntryDate
         })
 
     cursor.close()
