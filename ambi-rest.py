@@ -218,7 +218,7 @@ def get_diary_info():
     cursor.execute(supplement_query, sqlParams)
 
     for(SupType, SupMethod, NumberDiapers, TotalAmount, NumberTimes, EntryDate) in cursor:
-        if(SupType == None or SupMethod == None or NumberDiapers == None or TotalAmount == None or NumberTimes == None):
+        if(SupType == None or SupMethod == None or TotalAmount == None or NumberTimes == None):
             continue
         supplement_diary.append({
             'suptype': suptype_map(SupType),
