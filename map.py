@@ -1,5 +1,4 @@
 # Mother model mapped values
-
 def age_map(num):
     return {
         1: '<20',
@@ -8,17 +7,22 @@ def age_map(num):
         4: '40 or more'
     }[num]
 
+
 def ethnicity_map(num):
     return None
+
 
 def race_map(num):
     return None
 
+
 def education_map(num):
     return None
 
+
 def house_income_map(num):
     return None
+
 
 def occupation_map(num):
     return {
@@ -29,8 +33,10 @@ def occupation_map(num):
 
     }[num]
 
+
 def residence_map(num):
     return None
+
 
 def parity_map(num):
     return None
@@ -42,6 +48,7 @@ def parity_map(num):
         4: 'none'
     }[num]
     '''
+
 
 def poh_map(num):
     return None
@@ -66,6 +73,7 @@ def poh_map(num):
         2122: 'none'
     }[num]
     '''
+
 
 def mhdp_map(num):
     return {
@@ -132,8 +140,8 @@ def mhdp_map(num):
         1212122: 'Bleeding during pregnancy, Lack or late prenatal care, Gestational Diabetes and Other',
         1212222: 'Bleeding during pregnancy, Lack or late prenatal care, PROM, Gestational Diabetes and Other',
         1211211: 'Bleeding during pregnancy, and Gestational Diabetes and Other'
-
     }[num]
+
 
 def method_of_delivery_map(num):
     return {
@@ -141,8 +149,8 @@ def method_of_delivery_map(num):
         2: 'Vaginal with Assistance',
         3: 'Breech',
         4: 'Section'
-
     }[num]
+
 
 def pbe_map(num):
     return {
@@ -151,12 +159,8 @@ def pbe_map(num):
         3: "7-12 months",
         4: "> 1 year",
         5: "No past breastfeeding experience"
-
     }[num]
 
-#Diary Mapped values
-
-#Values for BreastfeedEntry database
 
 def breast_feeding_duration_map(num):
     return {
@@ -165,8 +169,8 @@ def breast_feeding_duration_map(num):
         3: "5-10 minutes",
         4: "11-15 minutes",
         5: "> 15 minutes"
-
     }[num]
+
 
 def pumping_method_map(num):
     return {
@@ -176,6 +180,7 @@ def pumping_method_map(num):
         4: "Not applicable"
     }[num]
 
+
 def infant_state_map(num):
     return {
         1: "Difficult to awake",
@@ -183,8 +188,8 @@ def infant_state_map(num):
         3: "Quiet and Alert",
         4: "Active alert",
         5: "Crying"
-
     }[num]
+
 
 def maternal_problems_map(num):
     return {
@@ -196,6 +201,7 @@ def maternal_problems_map(num):
         6: "No problem"
     }[num]
 
+
 def latching_map(num):
     return{
         1: "Not at all",
@@ -204,12 +210,14 @@ def latching_map(num):
         4: "Latch with nipple shield"
     }[num]
 
+
 def side_map(num):
     return{
         1: "left",
         2: "right",
         3: "both"
     }[num]
+
 
 def pumping_amount_map(num):
     return{
@@ -225,10 +233,8 @@ def pumping_amount_map(num):
         9: "9 ounce",
         10: "10 ounce",
         11: "> 10 ounces"
-
     }[num]
 
-#Values for SupplementEntry database
 
 def suptype_map(num):
     return {
@@ -236,6 +242,7 @@ def suptype_map(num):
         2: "Pasteurized human milk",
         3: "Formula"
     }[num]
+
 
 def supmethod_map(num):
     return{
@@ -245,10 +252,6 @@ def supmethod_map(num):
         4: "Spoon"
      }[num]
 
-def number_of_diapers_map(num):
-    return None
-
-#TODO this doesnt look right
 
 def total_amount_map(num):
     return{
@@ -266,6 +269,7 @@ def total_amount_map(num):
 
     }[num]
 
+
 def total_amount_today(num):
     return{
         1: "1",
@@ -276,7 +280,6 @@ def total_amount_today(num):
         6: "> 5"
     }[num]
 
-#Values for OutputEntry database
 
 def urine_color_map(num):
     return{
@@ -284,6 +287,7 @@ def urine_color_map(num):
         1: "Amber Yellow",
         2: "Dark Yellow"
     }[num]
+
 
 def urine_saturation_map(num):
     return{
@@ -294,6 +298,7 @@ def urine_saturation_map(num):
         4: "Heavily wet"
     }[num]
 
+
 def stool_color_map(num):
     return{
         0: "None",
@@ -302,6 +307,7 @@ def stool_color_map(num):
         3: "Yellow"
     }[num]
 
+
 def stool_consistency_map(num):
     return{
         0: "None",
@@ -309,6 +315,7 @@ def stool_consistency_map(num):
         2: "Formed",
         3: "Watery"
     }[num]
+
 
 def number_of_diapers_map(num):
     if num is None:
@@ -324,6 +331,7 @@ def number_of_diapers_map(num):
         7: "> 6"
     }[num]
 
+
 def type_map(num):
     return {
         1: "Jaundice",
@@ -336,3 +344,31 @@ def type_map(num):
     }[num]
 
 
+def notification_title_map(num):
+    return {
+        1: "Hello",
+        2: "World",
+        3: "Hello",
+        4: "World",
+        5: "Hello",
+        6: "World",
+        7: "Hello",
+        8: "World",
+        9: "Hello",
+        10: "World"
+    }[num]
+
+
+def notification_description_map(num):
+    return {
+        1: "Hello",
+        2: "World",
+        3: "Hello",
+        4: "World",
+        5: "Hello",
+        6: "World",
+        7: "Hello",
+        8: "World",
+        9: "Hello",
+        10: "World"
+    }[num]

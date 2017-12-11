@@ -6,7 +6,7 @@ from map import age_map, ethnicity_map, race_map, education_map, house_income_ma
     parity_map, poh_map, mhdp_map, method_of_delivery_map, pbe_map, breast_feeding_duration_map, pumping_method_map, \
     infant_state_map, maternal_problems_map, latching_map, pumping_amount_map, side_map, suptype_map, supmethod_map, \
     number_of_diapers_map, total_amount_map, total_amount_today, urine_color_map, urine_saturation_map, stool_color_map, \
-    stool_consistency_map, type_map
+    stool_consistency_map, type_map, notification_title_map, notification_description_map
 
 app = Flask(__name__)
 
@@ -272,6 +272,38 @@ def get_diary_info():
         'outputEntries': output_entries,
         'morbidityEntries': morbidity_entries
     })
+
+
+
+@app.route('/notifications')
+def get_diary_info():
+    db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+
+    # Url Params
+    authToken = request.args.get('authToken')
+    motherId = request.args.get('motherId')
+
+    query = """
+        SELECT status,
+               ntype,
+               DATE_FORMAT(NotificationIssued, '%b %e, %Y') as date
+        FROM Notifications
+        WHERE mid = %s
+    """
+
+    cursor = db.get_cursor()
+    cursor.execute(query, motherId)
+
+    notificationsList = []
+
+    for (status, ntype, date) in cursor:
+        notificationsList.append({
+            'date': date,
+            'seenByMother': status == 2,
+            'title': notification_title_map(ntype),
+            'description': notification_description_map(ntype)
+        })
+
 
 
 if __name__ == '__main__':
