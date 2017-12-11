@@ -282,12 +282,17 @@ def get_notifications():
     authToken = request.args.get('authToken')
     motherId = request.args.get('motherId')
 
+    # TODO actual user verification
+    if authToken != 'AXNTHAUONTUOAENHTOEUA':
+        abort(403)
+
     query = """
         SELECT status,
                ntype,
                DATE_FORMAT(NotificationIssued, '%b %e, %Y') as date
         FROM Notifications
         WHERE mid = %s
+        ORDER BY NotificationIssued DESC
     """
 
     cursor = db.cursor()
