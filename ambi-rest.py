@@ -274,7 +274,6 @@ def get_diary_info():
     })
 
 
-
 @app.route('/notifications')
 def get_notifications():
     db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
@@ -291,7 +290,7 @@ def get_notifications():
         WHERE mid = %s
     """
 
-    cursor = db.get_cursor()
+    cursor = db.cursor()
     cursor.execute(query, motherId)
 
     notifications_list = []
@@ -303,6 +302,9 @@ def get_notifications():
             'title': notification_title_map(ntype),
             'description': notification_description_map(ntype)
         })
+
+    cursor.close()
+    db.close()
 
     return jsonify({
         "notifications": notifications_list
