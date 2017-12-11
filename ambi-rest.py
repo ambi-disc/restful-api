@@ -276,7 +276,7 @@ def get_diary_info():
 
 
 @app.route('/notifications')
-def get_diary_info():
+def get_notifications():
     db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
     # Url Params
