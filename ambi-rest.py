@@ -294,15 +294,19 @@ def get_diary_info():
     cursor = db.get_cursor()
     cursor.execute(query, motherId)
 
-    notificationsList = []
+    notifications_list = []
 
     for (status, ntype, date) in cursor:
-        notificationsList.append({
+        notifications_list.append({
             'date': date,
             'seenByMother': status == 2,
             'title': notification_title_map(ntype),
             'description': notification_description_map(ntype)
         })
+
+    return jsonify({
+        "notifications": notifications_list
+    })
 
 
 
