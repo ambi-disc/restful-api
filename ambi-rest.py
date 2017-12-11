@@ -291,7 +291,7 @@ def get_notifications():
     """
 
     cursor = db.cursor()
-    cursor.execute(query, motherId)
+    cursor.execute(query, (motherId,))
 
     notifications_list = []
 
