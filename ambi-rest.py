@@ -316,6 +316,81 @@ def get_notifications():
     })
 
 
+@app.route('/inbox', methods=['GET'])
+def get_inbox():
+    db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+
+    authToken = request.args.get('authToken')
+    # TODO actual user verification
+    if authToken != 'AXNTHAUONTUOAENHTOEUA':
+        abort(403)
+    reciever_id = 71  # FIXME
+
+    cursor = db.cursor()
+    cursor.execute("""
+        SELECT message, DATE_FORMAT(messageDate, '%b %e, %Y') as date, senderId, name
+        FROM Inbox
+        WHERE recipientId = %s
+        INNER JOIN MotherInfo ON MotherInfo.mid = Inbox.senderId
+    """, (reciever_id,))
+
+    received = []
+    for message, date, senderId, name in cursor:
+        received.append({
+            'message': message,
+            'messageDate': date,
+            'senderId': senderId,
+            'senderName': name
+        })
+
+    cursor.close()
+    cursor = db.cursor()
+    cursor.execute("""
+            SELECT message, DATE_FORMAT(messageDate, '%b %e, %Y') as date, recipientId, name
+            FROM Inbox
+            WHERE senderId = %s
+            INNER JOIN MotherInfo ON MotherInfo.mid = Inbox.recipientId
+        """, (reciever_id,))
+
+    sent = []
+    for message, date, recipientId, name in cursor:
+        sent.append({
+            'message': message,
+            'messageDate': date,
+            'receiverId': recipientId,
+            'receiverName': name
+        })
+
+    cursor.close()
+    db.close()
+
+    return jsonify({
+        "received": received,
+        "sent": sent
+    })
+
+
+@app.route('/inbox', methods=['POST'])
+def post_inbox():
+    db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+
+    sender_id = 71 # FIXME
+    reciever_id = request.get_json(force=True)['recieverId']
+    message = request.get_json(force=True)['message']
+
+    cursor = db.cursor()
+    cursor.execute("""
+        INSERT INTO Inbox(message, messageDate, senderId, recipientId, metadata)
+        VALUES(%s, NOW(), %s, %s, 25)
+    """, (message, sender_id, reciever_id))
+
+    cursor.close()
+    db.close()
+
+    return jsonify({
+        'ok': True
+    })
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
