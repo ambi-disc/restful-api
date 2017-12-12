@@ -374,9 +374,13 @@ def get_inbox():
 def post_inbox():
     db = mysql.connector.connect(user='epicsadm', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
+    print("Hi1")
     sender_id = 71 # FIXME
+    print("Hi2")
     reciever_id = request.get_json(force=True)['recieverId']
+    print("Hi3")
     message = request.get_json(force=True)['message']
+    print("Hi4")
 
     cursor = db.cursor()
     cursor.execute("""
