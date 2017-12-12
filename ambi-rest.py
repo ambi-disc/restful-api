@@ -330,8 +330,8 @@ def get_inbox():
     cursor.execute("""
         SELECT message, DATE_FORMAT(messageDate, '%b %e, %Y') as date, senderId, name
         FROM Inbox
-        WHERE recipientId = %s
         INNER JOIN MotherInfo ON MotherInfo.mid = Inbox.senderId
+        WHERE recipientId = %s
     """, (reciever_id,))
 
     received = []
@@ -348,8 +348,8 @@ def get_inbox():
     cursor.execute("""
             SELECT message, DATE_FORMAT(messageDate, '%b %e, %Y') as date, recipientId, name
             FROM Inbox
-            WHERE senderId = %s
             INNER JOIN MotherInfo ON MotherInfo.mid = Inbox.recipientId
+            WHERE senderId = %s
         """, (reciever_id,))
 
     sent = []
