@@ -372,7 +372,7 @@ def get_inbox():
 
 @app.route('/inbox', methods=['POST'])
 def post_inbox():
-    db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+    db = mysql.connector.connect(user='epicsadm', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
     sender_id = 71 # FIXME
     reciever_id = request.get_json(force=True)['recieverId']
