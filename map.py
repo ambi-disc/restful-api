@@ -346,29 +346,68 @@ def type_map(num):
 
 def notification_title_map(num):
     return {
-        1: "Hello",
-        2: "World",
-        3: "Hello",
-        4: "World",
-        5: "Hello",
-        6: "World",
-        7: "Hello",
-        8: "World",
-        9: "Hello",
-        10: "World"
+        1: "Problem: Latching",
+        2: "Problem: Sleepy",
+        3: "Problem: Jaundice",
+        4: "Problem: Engorgement",
+        5: "Problem: Sore nipple",
+        6: "Problem: Insufficient Breastfeeding",
+        7: "Problem: Nipple Shield",
+        8: "Great Job!",
+        9: "Great Job!",
+        10: "Great Job!"
     }[num]
 
 
 def notification_description_map(num):
     return {
-        1: "Hello",
-        2: "World",
-        3: "Hello",
-        4: "World",
-        5: "Hello",
-        6: "World",
-        7: "Hello",
-        8: "World",
-        9: "Hello",
-        10: "World"
+        1: """1.Skin-to-skin contact (remove all clothing from the baby -except diaper-,
+place the baby on your bare chest. The baby will crawl to the breast and latch).
+2.Pump every 3 hours if baby does not latch.
+3.Contact local lactation consultant for help.""",
+        2: """1. Skin-to-skin contact (remove all clothing from baby except diaper,
+place the baby on your bare chest. The baby will crawl to the
+breast and latch).
+2. Pump after each feeding if baby did not get enough.
+3. Contact the primary care provider if continues (baby should
+not go for more than 5 hours without feeding for the first
+5 weeks).""",
+        3: """1. Contact your primary care provider.
+2. Breastfeed the baby more frequently.
+3. Make sure that the baby is latching correctly.
+4. Report any decrease in wet and dirty diapers.""",
+        4: """1.Manually express or pump enough to soften your
+breast before putting your baby to the breast.
+2. Breastfeed your baby more often.
+3. Make sure that your baby is latching on and feeding well.
+4. Apply cold packs to the breasts after feeding to help
+reduce swelling, warmth, and pain.""",
+        5: """"1. Make sure that your baby is latched on well, so
+that baby opens mouth wide.
+2. Continue breast-feeding even if nipples are sore or
+cracked. Try to feed the baby from the less painful
+breast first.
+3. Detach your baby carefully off of the breast
+ when feeding is finished.
+4. Breastfeed often (Every 1&frac12; to 3 hours for 8 to 12
+feedings a day) to reduce engorgement.
+5. Vary nursing positions, so the baby's positions on the
+breast are changed.
+6. Express colostrum or milk onto your nipples before and
+after feedings.
+7. After feeding, allow the nipples to air dry.""",
+        6: """1. Ideal breastfeeding during the first month is
+from 8 to 12 times per day. Feeding your baby less
+than 6 times per day will decrease your milk supply.
+2. Try to breastfeed your baby as much as you can and avoid
+any supplementation.
+3. Contact your lactation consultant if you have any question.""",
+        7: """1. A nipple shield should in general be considered a short-term solution
+and should be used under the guidance of a Lactation Consultant.
+2. Work with you lactation consultant to solve the problem behind
+using a nipple shield.
+3. Make sure that your baby is getting enough milk and gaining weight.""",
+        8: "Effective breastfeeding is from 8 to 12 times per day.",
+        9: "Effective breastfeeding is from 8 to 12 times per day.",
+        10: "Effective breastfeeding is from 8 to 12 times per day."
     }[num]
