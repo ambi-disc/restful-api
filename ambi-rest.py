@@ -377,9 +377,10 @@ def post_inbox():
     print("Hi1")
     sender_id = 71 # FIXME
     print("Hi2")
-    reciever_id = request.get_json()['recieverId']
+    print(request.data)
+    reciever_id = request.json['recieverId']
     print("Hi3")
-    message = request.get_json()['message']
+    message = request.json['message']
     print("Hi4")
 
     cursor = db.cursor()
