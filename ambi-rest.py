@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 import mysql.connector
 from flask import abort
+import json
 
 from map import age_map, ethnicity_map, race_map, education_map, house_income_map, occupation_map, residence_map, \
     parity_map, poh_map, mhdp_map, method_of_delivery_map, pbe_map, breast_feeding_duration_map, pumping_method_map, \
@@ -374,14 +375,11 @@ def get_inbox():
 def post_inbox():
     db = mysql.connector.connect(user='epicsadm', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
-    print("Hi1")
     sender_id = 71 # FIXME
-    print("Hi2")
     print(request.data)
-    reciever_id = request.json['recieverId']
-    print("Hi3")
-    message = request.json['message']
-    print("Hi4")
+    json_map = json.loads(request.data)
+    reciever_id = json_map['recieverId']
+    message = json_map['message']
 
     cursor = db.cursor()
     cursor.execute("""
