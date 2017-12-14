@@ -33,6 +33,8 @@ def login_endpoint():
     cursor = database.cursor()
     cursor.execute("select sid, password from Scientists where email = %s", (email,))
     for sid, real_hashed_password in cursor:
+        print(real_hashed_password)
+        print(potential_hashed_password)
         if real_hashed_password == potential_hashed_password:
             print("User authenticated")
             cursor.close()
