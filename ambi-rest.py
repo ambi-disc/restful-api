@@ -1,7 +1,11 @@
+from random import choice
+from string import ascii_uppercase
+
 from flask import Flask, jsonify, request
 import mysql.connector
 from flask import abort
 import json
+import hashlib
 
 from map import age_map, ethnicity_map, race_map, education_map, house_income_map, occupation_map, residence_map, \
     parity_map, poh_map, mhdp_map, method_of_delivery_map, pbe_map, breast_feeding_duration_map, pumping_method_map, \
@@ -17,40 +21,96 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/account/create', methods=['POST'])
-def create_account_endpoint():
-    return jsonify(
-        success=True,
-        authToken="aTHN45nthuoe43+?",
-        timeoutTimestamp="1635094775"
-    )
-
-
 @app.route('/account/login', methods=['POST'])
 def login_endpoint():
+    json_map = json.loads(request.data)
+    email = json_map['email']
+    password = json_map['password']
+
+    potential_hashed_password = hashlib.sha256('&h*i@s' + password)
+
+    database = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+    cursor = database.cursor()
+    cursor.execute("select sid, password from Scientists where email = %s", (email,))
+    for sid, real_hashed_password in cursor:
+        if real_hashed_password == potential_hashed_password:
+            cursor.close()
+            database.close()
+            return successful_login(sid)
+
     return jsonify(
-        success=True,
-        authToken="aTHN45nthuoe43+?",
-        timeoutTimestamp="1635094775"
+        success=False
     )
+
+
+def successful_login(sid):
+    while True:
+        existing_token = get_existing_token(sid)
+        if existing_token is not None:
+            return jsonify(
+                auth_token=existing_token,
+                success=True
+            )
+        potential_auth_token = ''.join(choice(ascii_uppercase) for i in range(15))
+        if not auth_token_used(potential_auth_token):
+            insert_auth_token_into_db(potential_auth_token, sid)
+            return jsonify(
+                auth_token=potential_auth_token,
+                success=True
+            )
+
+
+def auth_token_used(potential_auth_token):
+    database = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+    cursor = database.cursor()
+    cursor.execute("select sid from ScientistTokens where token = %s", (potential_auth_token,))
+    for _ in cursor:
+        return True
+    else:
+        return False
+
+
+def insert_auth_token_into_db(auth_token, sid):
+    database = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+    cursor = database.cursor()
+    cursor.execute("insert into ScientistTokens(sid, token) values (%s, %s)", (sid, auth_token))
+
+
+def get_existing_token(sid):
+    database = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+    cursor = database.cursor()
+    cursor.execute("select token from ScientistTokens where sid = %s", (sid,))
+    for token in cursor:
+        return token
+    return None
+
+
+def verify_auth_token(auth_token):
+    database = mysql.connector.connect(user='EPICS', password='EPICS2017', database='lactor', host='166.62.75.128',
+                                       port=3306)
+    cursor = database.cursor()
+    cursor.execute("select sid from ScientistTokens where token = %s", (auth_token,))
+    for sid in cursor:
+        return sid
+    abort(403)
 
 
 @app.route('/account/verify_token')
 def verify_token_endpoint():
+    auth_token = request.args.get('authToken')
+    verify_auth_token(auth_token)
     return jsonify(
         valid=True
     )
+
 
 @app.route('/mothers')
 def get_mother_info():
     query = ('SELECT * FROM MotherInfo')
     cnx = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
-    authToken = request.args.get('authToken')
-
-    # TODO actual user verification
-    if authToken != 'AXNTHAUONTUOAENHTOEUA':
-        abort(403)
+    auth_token = request.args.get('authToken')
+    verify_auth_token(auth_token)
 
     cursor = cnx.cursor()
     cursor.execute(query)
@@ -83,38 +143,7 @@ def get_mother_info():
     return jsonify(
         mothers=mothers
     )
-'''
-@app.route('/scientists')
-def get_scientists_info():
-    query=('SELECT * FROM Scientists')
-    db = mysql.connector.connect(user='EPICS', password='EPICS2017', database='lactor', host='166.62.75.128', port=3306)
-    authToken = request.args.get('authToken')
 
-    # TODO actual user verification
-    if authToken != 'AXNTHAUONTUOAENHTOEUA':
-        abort(403)
-
-    cursor = cnx.cursor()
-    cursor.execute(query)
-
-    scientists = []
-
-    for(sid, email, password, loginstep, admin, hospital_id, name) in cursor:
-        try:
-            scientists = {
-                'scientistid'= sid,
-                'email' = email,
-                'password' = password,
-                'loginstep' = loginstep,
-                'admin' = admin,
-                'hospitalid'= hospital_id,
-                'name' = name
-            
-                    
-            }
-            print(scientists)
-            r
-'''
 
 @app.route('/diary')
 def get_diary_info():
@@ -122,14 +151,11 @@ def get_diary_info():
     db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
     # Url Params
-    authToken = request.args.get('authToken')
+    auth_token = request.args.get('authToken')
+    verify_auth_token(auth_token)
     motherId = request.args.get('motherId')
     startDate = request.args.get('startDate')
     endDate = request.args.get('endDate')
-
-    # TODO actual user verification
-    if authToken != 'AXNTHAUONTUOAENHTOEUA':
-        abort(403)
 
     sqlParams = (motherId,)
     suffix_to_query = ''
@@ -280,12 +306,9 @@ def get_notifications():
     db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
     # Url Params
-    authToken = request.args.get('authToken')
     motherId = request.args.get('motherId')
-
-    # TODO actual user verification
-    if authToken != 'AXNTHAUONTUOAENHTOEUA':
-        abort(403)
+    auth_token = request.args.get('authToken')
+    verify_auth_token(auth_token)
 
     query = """
         SELECT status,
@@ -321,11 +344,8 @@ def get_notifications():
 def get_inbox():
     db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
-    authToken = request.args.get('authToken')
-    # TODO actual user verification
-    if authToken != 'AXNTHAUONTUOAENHTOEUA':
-        abort(403)
-    reciever_id = 71  # FIXME
+    auth_token = request.args.get('authToken')
+    sender_id = verify_auth_token(auth_token)
 
     cursor = db.cursor()
     cursor.execute("""
@@ -375,8 +395,9 @@ def get_inbox():
 def post_inbox():
     db = mysql.connector.connect(user='epicsadm', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
-    sender_id = 71 # FIXME
-    print(request.data)
+    auth_token = request.args.get('authToken')
+    sender_id = verify_auth_token(auth_token)
+
     json_map = json.loads(request.data)
     reciever_id = json_map['recieverId']
     message = json_map['message']
