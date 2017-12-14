@@ -34,10 +34,11 @@ def login_endpoint():
     cursor.execute("select sid, password from Scientists where email = %s", (email,))
     for sid, real_hashed_password in cursor:
         if real_hashed_password == potential_hashed_password:
+            print("User authenticated")
             cursor.close()
             database.close()
             return successful_login(sid)
-
+    print("Invalid login")
     return jsonify(
         success=False
     )
