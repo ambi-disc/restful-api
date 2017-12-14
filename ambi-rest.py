@@ -40,6 +40,19 @@ def login_endpoint():
             cursor.close()
             database.close()
             return successful_login(sid)
+    cursor.close()
+    cursor = database.cursor()
+
+    cursor.execute("select mid, password from Mothers where email = %s", (email,))
+    for sid, real_hashed_password in cursor:
+        print(real_hashed_password)
+        print(potential_hashed_password)
+        if real_hashed_password == potential_hashed_password:
+            print("User authenticated")
+            cursor.close()
+            database.close()
+            return successful_login(sid)
+        
     print("Invalid login")
     return jsonify(
         success=False
