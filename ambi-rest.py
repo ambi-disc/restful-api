@@ -384,7 +384,7 @@ def get_inbox():
             'message': message,
             'messageDate': date,
             'receiverId': recipientId,
-            'receiverName': name
+            'senderName': name
         })
 
     cursor.close()
