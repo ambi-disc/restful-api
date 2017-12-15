@@ -138,6 +138,7 @@ def get_mother_info():
         oc = 0
         mc = 0
         for count1, count2 in csr:
+            print("hi")
             if count1 == 1:
                 bc = count2
             elif count1 == 2:
