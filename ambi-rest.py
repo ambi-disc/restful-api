@@ -350,7 +350,7 @@ def get_notifications():
 def get_inbox():
     db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
-    sender_id = verify_auth_token(request.args.get('auth_token'))
+    sender_id = verify_auth_token(request.args.get('auth_token'))[0]
 
     cursor = db.cursor()
     cursor.execute("""
@@ -400,7 +400,7 @@ def get_inbox():
 def post_inbox():
     db = mysql.connector.connect(user='epicsadm', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
-    sender_id = verify_auth_token(request.args.get('auth_token'))
+    sender_id = verify_auth_token(request.args.get('auth_token'))[0]
 
     json_map = json.loads(request.data)
     reciever_id = json_map['recieverId']
