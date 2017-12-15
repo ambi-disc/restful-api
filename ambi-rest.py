@@ -126,27 +126,28 @@ def get_mother_info():
     cursor.execute(query)
 
     mothers = []
+    db = mysql.connector.connect(user='EPICS', password='EPICS2017', database='lactor', host='166.62.75.128',
+                                      port=3306)
+    csr = db.cursor()
+    csr.execute("select EntryType, count(*) from Diary where mid = 30 group by EntryType")
+    bc = 0
+    sc = 0
+    oc = 0
+    mc = 0
+    for count1, count2 in csr:
+        print("hi")
+        if count1 == 1:
+            bc = count2
+        elif count1 == 2:
+            sc = count2
+        elif count1 == 3:
+            oc = count2
+        elif count1 == 4:
+            oc = count2
 
     for( mid, Name, Address, Age, Ethnicity, Race, Education, HouseIncome, Occupation, Residence, Parity, POH, MHDP, MethodOfDelivery, PBE, Phone) in cursor:
 
-        db = mysql.connector.connect(user='EPICS', password='EPICS2017', database='lactor', host='166.62.75.128',
-                                      port=3306)
-        csr = db.cursor()
-        csr.execute("select EntryType, count(*) from Diary where mid = %s group by EntryType", (mid,))
-        bc = 0
-        sc = 0
-        oc = 0
-        mc = 0
-        for count1, count2 in csr:
-            print("hi")
-            if count1 == 1:
-                bc = count2
-            elif count1 == 2:
-                sc = count2
-            elif count1 == 3:
-                oc = count2
-            elif count1 == 4:
-                oc = count2
+
         try:
             mother = {
                 'name': Name,
