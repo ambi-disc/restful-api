@@ -33,8 +33,6 @@ def login_endpoint():
     cursor = database.cursor()
     cursor.execute("select sid, password from Scientists where email = %s", (email,))
     for sid, real_hashed_password in cursor:
-        print(real_hashed_password)
-        print(potential_hashed_password)
         if not real_hashed_password == potential_hashed_password:
             print("User authenticated")
             cursor.close()
@@ -45,8 +43,6 @@ def login_endpoint():
 
     cursor.execute("select mid, password from Mothers where email = %s", (email,))
     for sid, real_hashed_password in cursor:
-        print(real_hashed_password)
-        print(potential_hashed_password)
         if not real_hashed_password == potential_hashed_password:
             print("User authenticated")
             cursor.close()
@@ -153,7 +149,7 @@ def get_mother_info():
             }
             mothers.append(mother)
         except KeyError:
-            print("Mother with id %s has a null value, and will not be returned as a result." % mid)
+            pass
     return jsonify(
         mothers=mothers
     )
@@ -278,10 +274,8 @@ def get_diary_info():
     cursor.execute(output_query, sqlParams)
 
     for(UrineColor, UrineSaturation, StoolColor, StoolConsistency, NumberDiapers, EntryDate) in cursor:
-        print("Hi 1")
         if(UrineColor == None or UrineSaturation == None or StoolColor == None or StoolConsistency == None or NumberDiapers == None):
             continue
-        print("Hi 2")
         output_entries.append({
             'urinecolor': urine_color_map(UrineColor),
             'urinesaturation': urine_saturation_map(UrineSaturation),
