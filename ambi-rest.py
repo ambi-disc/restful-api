@@ -132,7 +132,7 @@ def get_mother_info():
         db = mysql.connector.connect(user='EPICS', password='EPICS2017', database='lactor', host='166.62.75.128',
                                       port=3306)
         csr = db.cursor()
-        csr.execute("select EntryType, count(*) from Diary group by EntryType")
+        csr.execute("select EntryType, count(*) from Diary where mid = %s group by EntryType", (mid,))
         bc = 0
         sc = 0
         oc = 0
