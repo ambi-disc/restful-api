@@ -62,7 +62,7 @@ def login_endpoint():
 def successful_login(sid):
     while True:
         existing_token = get_existing_token(sid)
-        if existing_token is not None:
+        if existing_token[0] is not None:
             return jsonify(
                 auth_token=existing_token,
                 success=True
