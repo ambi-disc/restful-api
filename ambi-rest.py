@@ -77,7 +77,7 @@ def successful_login(sid):
 
 
 def auth_token_used(potential_auth_token):
-    database = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+    database = mysql.connector.connect(user='epicsadm', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
     cursor = database.cursor()
     cursor.execute("select sid from ScientistTokens where token = %s", (potential_auth_token,))
     for _ in cursor:
@@ -87,13 +87,13 @@ def auth_token_used(potential_auth_token):
 
 
 def insert_auth_token_into_db(auth_token, sid):
-    database = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+    database = mysql.connector.connect(user='epicsadm', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
     cursor = database.cursor()
     cursor.execute("insert into ScientistTokens(sid, token) values (%s, %s)", (sid, auth_token))
 
 
 def get_existing_token(sid):
-    database = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+    database = mysql.connector.connect(user='epicsadm', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
     cursor = database.cursor()
     cursor.execute("select token from ScientistTokens where sid = %s", (sid,))
     for token in cursor:
@@ -102,7 +102,7 @@ def get_existing_token(sid):
 
 
 def verify_auth_token(auth_token):
-    database = mysql.connector.connect(user='EPICS', password='EPICS2017', database='lactor', host='166.62.75.128',
+    database = mysql.connector.connect(user='epicsadm', password='EPICS2017', database='lactor', host='166.62.75.128',
                                        port=3306)
     cursor = database.cursor()
     cursor.execute("select sid from ScientistTokens where token = %s", (auth_token,))
