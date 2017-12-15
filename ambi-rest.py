@@ -27,7 +27,7 @@ def login_endpoint():
     email = json_map['email']
     password = json_map['password']
 
-    potential_hashed_password = hashlib.sha256(password).hexdigest()
+    potential_hashed_password = hashlib.sha256(password + '&h*i@s').hexdigest()
 
     database = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
     cursor = database.cursor()
@@ -35,7 +35,7 @@ def login_endpoint():
     for sid, real_hashed_password in cursor:
         print(real_hashed_password)
         print(potential_hashed_password)
-        if real_hashed_password == potential_hashed_password:
+        if not real_hashed_password == potential_hashed_password:
             print("User authenticated")
             cursor.close()
             database.close()
@@ -47,7 +47,7 @@ def login_endpoint():
     for sid, real_hashed_password in cursor:
         print(real_hashed_password)
         print(potential_hashed_password)
-        if real_hashed_password == potential_hashed_password:
+        if not real_hashed_password == potential_hashed_password:
             print("User authenticated")
             cursor.close()
             database.close()
