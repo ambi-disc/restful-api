@@ -382,7 +382,7 @@ breast before putting your baby to the breast.
 3. Make sure that your baby is latching on and feeding well.
 4. Apply cold packs to the breasts after feeding to help
 reduce swelling, warmth, and pain.""",
-        5: """"1. Make sure that your baby is latched on well, so
+        5: """1. Make sure that your baby is latched on well, so
 that baby opens mouth wide.
 2. Continue breast-feeding even if nipples are sore or
 cracked. Try to feed the baby from the less painful
