@@ -27,7 +27,7 @@ def login_endpoint():
     email = json_map['email']
     password = json_map['password']
 
-    potential_hashed_password = hashlib.sha256('&h*i@s' + password)
+    potential_hashed_password = hashlib.sha256('&h*i@s' + password).hexdigest()
 
     database = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
     cursor = database.cursor()
@@ -52,7 +52,7 @@ def login_endpoint():
             cursor.close()
             database.close()
             return successful_login(sid)
-        
+
     print("Invalid login")
     return jsonify(
         success=False
