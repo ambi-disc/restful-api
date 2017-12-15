@@ -128,28 +128,38 @@ def get_mother_info():
     mothers = []
 
     for( mid, Name, Address, Age, Ethnicity, Race, Education, HouseIncome, Occupation, Residence, Parity, POH, MHDP, MethodOfDelivery, PBE, Phone) in cursor:
-        try:
-            mother = {
-                'name': Name,
-                'motherId': mid,
-                'address': Address,
-                'age': age_map(Age),
-                'ethnicity': ethnicity_map(Ethnicity),
-                'race': race_map(Race),
-                'education': education_map(Education),
-                'houseIncome': house_income_map(HouseIncome),
-                'occupation': occupation_map(Occupation),
-                'residence': residence_map(Residence),
-                'parity': parity_map(Parity),
-                'poh': poh_map(POH),
-                'mhdp': mhdp_map(MHDP),
-                'methodOfDelivery': method_of_delivery_map(MethodOfDelivery),
-                'pbe': pbe_map(PBE),
-                'phone': Phone
-            }
-            mothers.append(mother)
-        except KeyError:
-            pass
+
+        db = mysql.connector.connect(user='EPICS', password='EPICS2017', database='lactor', host='166.62.75.128',
+                                      port=3306)
+        csr = db.cursor()
+        csr.execute("select EntryType, count(*) from Diary group by EntryType")
+        for count1, count2, count3, count4 in csr:
+            try:
+                mother = {
+                    'name': Name,
+                    'motherId': mid,
+                    'address': Address,
+                    'age': age_map(Age),
+                    'ethnicity': ethnicity_map(Ethnicity),
+                    'race': race_map(Race),
+                    'education': education_map(Education),
+                    'houseIncome': house_income_map(HouseIncome),
+                    'occupation': occupation_map(Occupation),
+                    'residence': residence_map(Residence),
+                    'parity': parity_map(Parity),
+                    'poh': poh_map(POH),
+                    'mhdp': mhdp_map(MHDP),
+                    'methodOfDelivery': method_of_delivery_map(MethodOfDelivery),
+                    'pbe': pbe_map(PBE),
+                    'phone': Phone,
+                    'bc': count1,
+                    'sc': count2,
+                    'oc': count3,
+                    'mc': count4
+                }
+                mothers.append(mother)
+            except KeyError:
+                pass
     return jsonify(
         mothers=mothers
     )
