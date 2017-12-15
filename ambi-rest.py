@@ -29,7 +29,7 @@ def login_endpoint():
 
     potential_hashed_password = hashlib.sha256(password + '&h*i@s').hexdigest()
 
-    database = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
+    database = mysql.connector.connect(user='epicsadm', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
     cursor = database.cursor()
     cursor.execute("select sid, password from Scientists where email = %s", (email,))
     for sid, real_hashed_password in cursor:
