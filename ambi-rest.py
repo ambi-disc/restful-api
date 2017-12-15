@@ -64,7 +64,7 @@ def successful_login(sid):
         existing_token = get_existing_token(sid)
         if existing_token[0] is not None:
             return jsonify(
-                auth_token=existing_token,
+                auth_token=existing_token[0],
                 success=True
             )
         potential_auth_token = ''.join(choice(ascii_uppercase) for i in range(15))
