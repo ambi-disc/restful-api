@@ -113,8 +113,7 @@ def verify_auth_token(auth_token):
 
 @app.route('/account/verify_token')
 def verify_token_endpoint():
-    auth_token = request.args.get('authToken')
-    verify_auth_token(auth_token)
+    verify_auth_token(request.args.get('auth_token'))
     return jsonify(
         valid=True
     )
@@ -125,8 +124,7 @@ def get_mother_info():
     query = ('SELECT * FROM MotherInfo')
     cnx = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
-    auth_token = request.args.get('authToken')
-    verify_auth_token(auth_token)
+    verify_auth_token(request.args.get('auth_token'))
 
     cursor = cnx.cursor()
     cursor.execute(query)
@@ -167,8 +165,7 @@ def get_diary_info():
     db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
     # Url Params
-    auth_token = request.args.get('authToken')
-    verify_auth_token(auth_token)
+    verify_auth_token(request.args.get('auth_token'))
     motherId = request.args.get('motherId')
     startDate = request.args.get('startDate')
     endDate = request.args.get('endDate')
@@ -323,8 +320,7 @@ def get_notifications():
 
     # Url Params
     motherId = request.args.get('motherId')
-    auth_token = request.args.get('authToken')
-    verify_auth_token(auth_token)
+    verify_auth_token(request.args.get('auth_token'))
 
     query = """
         SELECT status,
@@ -360,8 +356,7 @@ def get_notifications():
 def get_inbox():
     db = mysql.connector.connect(user='EPICS', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
-    auth_token = request.args.get('authToken')
-    sender_id = verify_auth_token(auth_token)
+    sender_id = verify_auth_token(request.args.get('auth_token'))
 
     cursor = db.cursor()
     cursor.execute("""
@@ -369,7 +364,7 @@ def get_inbox():
         FROM Inbox
         INNER JOIN MotherInfo ON MotherInfo.mid = Inbox.senderId
         WHERE recipientId = %s
-    """, (reciever_id,))
+    """, (sender_id,))
 
     received = []
     for message, date, senderId, name in cursor:
@@ -387,7 +382,7 @@ def get_inbox():
             FROM Inbox
             INNER JOIN MotherInfo ON MotherInfo.mid = Inbox.recipientId
             WHERE senderId = %s
-        """, (reciever_id,))
+        """, (sender_id ,))
 
     sent = []
     for message, date, recipientId, name in cursor:
@@ -411,8 +406,7 @@ def get_inbox():
 def post_inbox():
     db = mysql.connector.connect(user='epicsadm', password='EPICS2017', database= 'lactor', host= '166.62.75.128', port=3306)
 
-    auth_token = request.args.get('authToken')
-    sender_id = verify_auth_token(auth_token)
+    sender_id = verify_auth_token(request.args.get('auth_token'))
 
     json_map = json.loads(request.data)
     reciever_id = json_map['recieverId']
